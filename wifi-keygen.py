@@ -5,19 +5,19 @@ WiFi Secure Password Generator
 
 Dev: K4YT3X
 Date Created: Mar 2, 2018
-Last Modified: Mar 3, 2018
+Last Modified: December 10, 2018
 
 Licensed under the GNU General Public License Version 3 (GNU GPL v3),
-    available at: https://www.gnu.org/licenses/gpl-3.0.txt
+    Avalon.ilable at: https://www.gnu.org/licenses/gpl-3.0.txt
 
-(C) 2016 - 2017 K4YT3X
+(C) 2016-2018 K4YT3X
 """
+from avalon_framework import Avalon
 from string import *
-import avalon_framework as av
 import argparse
 import random
 
-VERSION = "0.1 alpha"
+VERSION = "1.0.0"
 
 
 def proces_arguments():
@@ -61,26 +61,26 @@ def create_char_pool(args):
 
     if args.uppercase:
         if not args.quiet:
-            av.subLevelTimeInfo("Including Uppercase characters")
+            Avalon.debug_info("Including Uppercase characters")
         char_pool += ascii_uppercase
     if args.lowercase:
         if not args.quiet:
-            av.subLevelTimeInfo("Including lowercase characters")
+            Avalon.debug_info("Including lowercase characters")
         char_pool += ascii_lowercase
     if args.digits:
         if not args.quiet:
-            av.subLevelTimeInfo("Including digits")
+            Avalon.debug_info("Including digits")
         char_pool += digits
     if args.symbols:
         if not args.quiet:
-            av.subLevelTimeInfo("Including symbols")
+            Avalon.debug_info("Including symbols")
         char_pool += symbols
     if args.all or not (args.uppercase or args.lowercase or args.digits or args.symbols):
         if not args.quiet:
-            av.subLevelTimeInfo("Including all characters")
+            Avalon.debug_info("Including all characters")
         if args.uppercase or args.lowercase or args.digits or args.symbols:
             if not args.quiet:
-                av.warning("Ignoring other switches since including all characters")
+                Avalon.warning("Ignoring other switches since including all characters")
         char_pool = ascii_letters + digits + symbols
     return char_pool
 
@@ -93,13 +93,13 @@ def get_psk_length():
     """
     while 1:
         try:
-            psk_length = int(av.gets("Desired PSK Length: "))
+            psk_length = int(Avalon.gets("Desired PSK Length: "))
             if psk_length < 8 or psk_length > 63:
-                av.error("PSK length should be between 8 and 63")
+                Avalon.error("PSK length should be between 8 and 63")
                 continue
             break
         except ValueError:
-            av.error("Invalid Input")
+            Avalon.error("Invalid Input")
     return psk_length
 
 
